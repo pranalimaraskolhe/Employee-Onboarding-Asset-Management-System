@@ -1,0 +1,41 @@
+<template>
+    <template if:true={isFullTime}>
+        <lightning-card title="Onboarding Progress" icon-name='standard:task2'>
+            <div class="slds-p-around_medium">
+
+                <!-- Loading spinner-->
+                <template if:true={isLoading}>
+                    <lightning-spinner alternative-text="Loading"></lightning-spinner>
+                </template>
+
+                <template if:false={isLoading}>
+                    <!-- Progress Bar-->
+                    <div class="slds-m-bottom_medium">
+                        <p class="slds-text-heading_small">{completedCount} of {totalCount} Tasks Completed</p>
+                        <lightning-progress-bar 
+                            value={progressPercent}
+                            size="large"
+                            variant="base">
+                        </lightning-progress-bar>
+                    </div>
+
+                    <!-- task Table -->
+                    <template if:true={hasTasks}>
+                        <div style="height: 320px">
+                            <lightning-datatable
+                                key-field = 'Id'
+                                data={tasks}
+                                columns = {columns}
+                                hide-checkbox-column>
+                            </lightning-datatable>
+                        </div>
+                    </template>
+
+                    <template if:false={hasTasks}>
+                            <p class="slds-text-color_weak">No onboarding tasks found.</p>
+                    </template>
+                </template>
+            </div>
+        </lightning-card>
+    </template>
+</template>
